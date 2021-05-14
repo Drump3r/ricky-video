@@ -25,4 +25,11 @@ header img {
 .header-menu-profile img{
     margin-right: 8px;
     width: 40px;
-  }
+}
+
+.container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+}

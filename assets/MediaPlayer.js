@@ -1,14 +1,29 @@
-function mediaPlayer(config) {
+function MediaPlayer(config) {
     this.media = config.el
+    this.plugins = config.plugins || []
+    this._intPlugins()
 }
-mediaPlayer.prototype.play = function() {
+
+MediaPlayer. prototype._intPlugins = function () {
+    this.plugins.forEach(plugin => {
+        plugin.run(this)
+    });
+}
+
+MediaPlayer.prototype.play = function() {
     this.media.play()
     console.log('hola')
 }
-mediaPlayer.prototype.pause = function() {
+MediaPlayer.prototype.pause = function() {
     this.media.pause()
 }
-mediaPlayer.prototype.togglePlay = function () {
+MediaPlayer.prototype.mute = function() {
+    this.media.muted = true
+}
+MediaPlayer.prototype.unMute = function() {
+    this.media.muted = false
+}
+MediaPlayer.prototype.togglePlay = function () {
     if (this.media.paused) {
         this.play()
     } else {
@@ -16,4 +31,4 @@ mediaPlayer.prototype.togglePlay = function () {
     }
 }
 
-export default mediaPlayer
+export default MediaPlayer

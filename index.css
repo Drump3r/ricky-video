@@ -21,8 +21,6 @@ header img {
 }
 video {
     width: 100%;
-    height: 100%;
-    max-width: 828px;
 }
 .header-menu-profile{
     margin-top: 10px;
@@ -33,8 +31,20 @@ video {
 }
 
 .container {
+    max-width: 960px;
+    width: 100%;
+    margin: 0 auto;
     display: flex;
     justify-content: space-around;
     align-items: center;
     flex-direction: column;
+}
+
+section {
+    margin: 3em;
+    font-size: 1.6rem;
+}
+
+section > li {
+    margin: 2em;
 }

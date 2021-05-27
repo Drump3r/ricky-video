@@ -155,7 +155,15 @@ function _precache() {
 
           case 2:
             cache = _context.sent;
-            return _context.abrupt("return", cache.addAll(['/', '/index.html', '/assets/index.js', '/assets/MediaPlayer.js', '/assets/plugins/AutoPlay.js', '/assets/plugins/AutoPause.js', '/index.css', '/assets/BigBuckBunny.mp4']));
+            return _context.abrupt("return", cache.addAll([// '/',
+              // '/index.html',
+              // '/assets/index.js',
+              // '/assets/MediaPlayer.js',
+              // '/assets/plugins/AutoPlay.js',
+              // '/assets/plugins/AutoPause.js',
+              // '/index.css',
+              // '/assets/BigBuckBunny.mp4',
+            ]));
 
           case 4:
           case "end":
@@ -221,9 +229,7 @@ function _updateCache() {
 
           case 5:
             response = _context3.sent;
-            return _context3.abrupt("return", response.status === 200 ? cache.put(request, response) : new Promise(function (resolve, reject) {
-              return resolve(':D');
-            }));
+            return _context3.abrupt("return", cache.put(request, response));
 
           case 7:
           case "end":
@@ -262,7 +268,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51240" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54379" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

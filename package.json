@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/Drump3r/ricky-video#readme",
   "devDependencies": {
-    "parcel-bundler": "^1.12.5",
+    "parcel-bundler": "^1.10.3",
     "typescript": "^4.2.4"
   }
 }

@@ -125,66 +125,87 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-function MediaPlayer(config) {
-  this.media = config.el;
-  this.plugins = config.plugins || [];
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-  this._intPlugins();
-}
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-MediaPlayer.prototype._intPlugins = function () {
-  var _this = this;
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-  var player = {
-    play: function play() {
-      return _this.play();
-    },
-    pause: function pause() {
-      return _this.pause();
-    },
-    media: this.media,
+var MediaPlayer = /*#__PURE__*/function () {
+  function MediaPlayer(config) {
+    _classCallCheck(this, MediaPlayer);
 
-    get muted() {
-      return this.media.muted;
-    },
+    this.media = config.el;
+    this.plugins = config.plugins || [];
 
-    set muted(value) {
-      this.media.muted = value;
-    }
-
-  };
-  this.plugins.forEach(function (plugin) {
-    plugin.run(player);
-  });
-};
-
-MediaPlayer.prototype.play = function () {
-  this.media.play();
-};
-
-MediaPlayer.prototype.pause = function () {
-  this.media.pause();
-};
-
-MediaPlayer.prototype.mute = function () {
-  this.media.muted = true;
-};
-
-MediaPlayer.prototype.unMute = function () {
-  this.media.muted = false;
-};
-
-MediaPlayer.prototype.togglePlay = function () {
-  if (this.media.paused) {
-    this.play();
-  } else {
-    this.pause();
+    this._intPlugins();
   }
-};
 
-MediaPlayer.prototype.toggleMute = function () {
-  this.media.muted = !this.media.muted;
-};
+  _createClass(MediaPlayer, [{
+    key: "_intPlugins",
+    value: function _intPlugins() {
+      var _this = this;
+
+      var player = {
+        play: function play() {
+          return _this.play();
+        },
+        pause: function pause() {
+          return _this.pause();
+        },
+        media: this.media,
+
+        get muted() {
+          return this.media.muted;
+        },
+
+        set muted(value) {
+          this.media.muted = value;
+        }
+
+      };
+      this.plugins.forEach(function (plugin) {
+        plugin.run(player);
+      });
+    }
+  }, {
+    key: "play",
+    value: function play() {
+      this.media.play();
+    }
+  }, {
+    key: "pause",
+    value: function pause() {
+      this.media.pause();
+    }
+  }, {
+    key: "mute",
+    value: function mute() {
+      this.media.muted = true;
+    }
+  }, {
+    key: "unMute",
+    value: function unMute() {
+      this.media.muted = false;
+    }
+  }, {
+    key: "togglePlay",
+    value: function togglePlay() {
+      if (this.media.paused) {
+        this.play();
+      } else {
+        this.pause();
+      }
+    }
+  }, {
+    key: "toggleMute",
+    value: function toggleMute() {
+      this.media.muted = !this.media.muted;
+    }
+  }]);
+
+  return MediaPlayer;
+}();
 
 var _default = MediaPlayer;
 exports.default = _default;
@@ -208,69 +229,56 @@ AutoPlay.prototype.run = function (player) {
 
 var _default = AutoPlay;
 exports.default = _default;
-},{}],"assets/plugins/AutoPause.js":[function(require,module,exports) {
+},{}],"assets/plugins/AutoPause.ts":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-var AutoPause = /*#__PURE__*/function () {
+var AutoPause =
+/** @class */
+function () {
   function AutoPause() {
-    _classCallCheck(this, AutoPause);
-
     this.threshold = 0.25;
     this.handleIntersection = this.handleIntersection.bind(this);
     this.handleVisibilityChange = this.handleVisibilityChange.bind(this);
   }
 
-  _createClass(AutoPause, [{
-    key: "run",
-    value: function run(player) {
-      this.player = player;
-      var observer = new IntersectionObserver(this.handleIntersection, {
-        threshold: this.threshold
-      });
-      observer.observe(player.media);
-      document.addEventListener("visibilitychange", this.handleVisibilityChange);
-    }
-  }, {
-    key: "handleIntersection",
-    value: function handleIntersection(entries) {
-      var entry = entries[0];
-      var isVisible = entry.intersectionRatio >= this.threshold;
+  AutoPause.prototype.run = function (player) {
+    this.player = player;
+    var observer = new IntersectionObserver(this.handleIntersection, {
+      threshold: this.threshold
+    });
+    observer.observe(player.media);
+    document.addEventListener("visibilitychange", this.handleVisibilityChange);
+  };
 
-      if (isVisible) {
-        this.player.play();
-      } else {
-        this.player.pause();
-      }
-    }
-  }, {
-    key: "handleVisibilityChange",
-    value: function handleVisibilityChange() {
-      var isVisible = document.visibilityState === 'visible';
+  AutoPause.prototype.handleIntersection = function (entries) {
+    var entry = entries[0];
+    var isVisible = entry.intersectionRatio >= this.threshold;
 
-      if (isVisible) {
-        this.player.play();
-      } else {
-        this.player.pause();
-      }
+    if (isVisible) {
+      this.player.play();
+    } else {
+      this.player.pause();
     }
-  }]);
+  };
+
+  AutoPause.prototype.handleVisibilityChange = function () {
+    var isVisible = document.visibilityState === 'visible';
+
+    if (isVisible) {
+      this.player.play();
+    } else {
+      this.player.pause();
+    }
+  };
 
   return AutoPause;
 }();
 
-var _default = AutoPause;
-exports.default = _default;
+exports.default = AutoPause;
 },{}],"assets/index.js":[function(require,module,exports) {
 "use strict";
 
@@ -278,7 +286,7 @@ var _MediaPlayer = _interopRequireDefault(require("./MediaPlayer.js"));
 
 var _AutoPlay = _interopRequireDefault(require("./plugins/AutoPlay.js"));
 
-var _AutoPause = _interopRequireDefault(require("./plugins/AutoPause.js"));
+var _AutoPause = _interopRequireDefault(require("./plugins/AutoPause.ts"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -303,7 +311,7 @@ if ('serviceWorker' in navigator) {
     console.log(error.message);
   });
 }
-},{"./MediaPlayer.js":"assets/MediaPlayer.js","./plugins/AutoPlay.js":"assets/plugins/AutoPlay.js","./plugins/AutoPause.js":"assets/plugins/AutoPause.js","C:\\Users\\syste\\OneDrive\\Documentos\\platzi\\ricky-video\\sw.js":[["sw.js","sw.js"],"sw.js.map","sw.js"]}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./MediaPlayer.js":"assets/MediaPlayer.js","./plugins/AutoPlay.js":"assets/plugins/AutoPlay.js","./plugins/AutoPause.ts":"assets/plugins/AutoPause.ts","C:\\Users\\syste\\OneDrive\\Documentos\\platzi\\ricky-video\\sw.js":[["sw.js","sw.js"],"sw.js.map","sw.js"]}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -331,7 +339,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51240" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54379" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
